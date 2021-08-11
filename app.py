@@ -14,6 +14,18 @@ logging.basicConfig(level=logging.DEBUG)
 def hello_world():
     return "<p>Hello, World!</p>"
 
+@app.route("/catfact")
+def catfact():
+
+    url = "https://catfact.ninja/fact"
+    r = requests.get(url)
+    fact = r.json()
+    printable_fact = fact['fact']
+    #print to console
+    print("Did you know?: " + printable_fact)
+    return Response(json.dumps(fact))
+
+
 
 @app.route("/get-price/<ticker>")
 def get_price(ticker):
