@@ -3,7 +3,7 @@ import requests
 import json
 import logging
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 
 
@@ -18,9 +18,9 @@ def hello_world():
 @app.route("/get-price/<ticker>")
 def get_price(ticker):
     url = f"https://query2.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=price%2CsummaryDetail%2CpageViews%2CfinancialsTemplate"
-    response = requests.get(url)
+    headers={'User-Agent': 'Mozilla/5.0'}
+    response = requests.get(url,headers=headers)
     company_info = response.json()
-    app.logger.info(f"Requested ticker: {ticker}")
 
     if response.status_code > 400:
         app.logger.info(f"Yahoo has problem with ticker: {ticker}.")
@@ -50,7 +50,7 @@ def get_price(ticker):
         app.logger.error("Exception occurred", exc_info=True)
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run()
 
 
